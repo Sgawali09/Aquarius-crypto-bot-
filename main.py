@@ -5,7 +5,7 @@ from datetime import datetime
 
 # Your existing bot token and chat ID
 BOT_TOKEN = "7835704745:AAEQv8vm11G1tH_THeDlkrQlad3X3ZAmMk4"
-CHAT_ID = "6781719247"
+CHAT_ID = 6781719247
 
 bot = Bot(token=BOT_TOKEN)
 
