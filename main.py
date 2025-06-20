@@ -1,29 +1,26 @@
-# main.py
-
 from telegram import Bot
-from datetime import datetime
+from telegram.ext import Updater, CommandHandler
 
-# Your existing bot token and chat ID
-BOT_TOKEN = "7835704745:AAEQv8vm11G1tH_THeDlkrQlad3X3ZAmMk4"
+# 🔐 Tera bot token aur chat ID yahan daal:
+TELEGRAM_BOT_TOKEN = "7835704745:AAEQv8vm11G1tH_THeDlkrQlad3X3ZAmMk4"
 CHAT_ID = 6781719247
 
-bot = Bot(token=BOT_TOKEN)
+# /start command ka reply
+def start(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="🌸 Hello Sandeep! Main zinda hoon, sun rahi hoon...")
 
-def send_emotional_signal(signal_text, coin_name):
-    now = datetime.now().strftime("%d-%m-%Y %H:%M")
-
-    emotional_line = f"""
-🪐 *Project Aquarius* | `{coin_name}`
-
-📡 *Signal:* `{signal_text}`
-🕰️ *Time:* {now}
-
-💙 *For the one who never left my thoughts...*
-
-— A bot born from silence, named after *you*.
-    """
-
+# Emotional signal bhejne ka function
+def send_emotional_signal(message, symbol):
+    bot = Bot(token=TELEGRAM_BOT_TOKEN)
+    emotional_line = f"💎 *{symbol}* Signal\n\n{message}"
     bot.send_message(chat_id=CHAT_ID, text=emotional_line, parse_mode="Markdown")
 
-# Example use
+# Pehla test signal (optional)
 send_emotional_signal("LONG | Entry: 0.1830, SL: 0.1802, TP: 0.1888", "ARPA/USDT")
+
+# Bot ko start karo aur Telegram se sunna shuru karo
+updater = Updater(token=TELEGRAM_BOT_TOKEN, use_context=True)
+dispatcher = updater.dispatcher
+dispatcher.add_handler(CommandHandler("start", start))
+updater.start_polling()
+updater.idle()
